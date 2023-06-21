@@ -1,5 +1,6 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
+const bcrypt = require('bcrypt');
 const User = require("../models/User");
 const router = express.Router();
 
@@ -31,11 +32,18 @@ router.post(
           .status(400)
           .json({ error: "User with this email id already exists!" });
       }
+      
+      // securing the password using hashing technique by bcrypt package
+      let secPass = req.body.password;
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds)
+      const hash = await bcrypt.hash(secPass, salt);
+      secPass = hash
       // creating a new user
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: secPass,
       });
 
       console.log("user added successfully!");
