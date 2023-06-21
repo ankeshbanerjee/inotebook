@@ -21,4 +21,6 @@ const userSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('User', userSchema) // model creation by mongoose.model(modelName, schemaName)
+const User = mongoose.model('User', userSchema) // model creation by mongoose.model(modelName, schemaName)
+// User.createIndexes() //Creates indexes on collections
+module.exports = User
