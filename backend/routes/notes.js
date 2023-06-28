@@ -86,7 +86,7 @@ router.put("/updatenote/:noteid", fetchUser, async (req, res) => {
 });
 
 // ROUTE 3 : delete a note using PUT : 'api/notes/deletenode/:id' - login required
-router.delete("/deletenode/:noteid", fetchUser, async (req, res) => {
+router.delete("/deletenote/:noteid", fetchUser, async (req, res) => {
   try {
     // find the note to be deleted
     let note = await Note.findById(req.params.noteid);
